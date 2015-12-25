@@ -1,9 +1,13 @@
-source("p_methods.R")
-source("list_helper.R")
+# source("p_methods.R")
+# source("list_helper.R")
 
 test_env <- new.env(parent = emptyenv())
+# test_env <-     structure(list(
+#                 name            = "env"
+#             ), class = "TestCase")
 test_env$test_cases <- list()
 test_env$need_init <- TRUE
+
 
 new_test_case <- function(name){
     structure(list(
@@ -48,6 +52,7 @@ new_test_statics <- function(test_cases){
                 function(x) get("failure_error_list", x) )
         failure_error_list <- Reduce(c, failure_error_list)
     }
+    # ps(test_cases)
     structure(list(
                 test_count=length(test_cases), 
                 assertion_count=all_assertion_count, 
@@ -58,7 +63,11 @@ new_test_statics <- function(test_cases){
 }
 
 print_report_header <- function(){
-    test_env$start_time <<- Sys.time()
+    # if(bindingIsLocked("test_env", environment())){
+    #     unlockBinding("test_env", environment())
+    # }
+
+    test_env$start_time <- Sys.time()
     if(!is.null(test_env$only_tests)){
         cat("Notice, only test these functions: ")
         cat(paste(test_env$only_tests,collapse=", "))
@@ -100,12 +109,17 @@ print_detail.TestError <- function(the_error, index){
 }
 
 print_report_footer <- function(){
-    test_env$end_time <<- Sys.time()
+    # if(bindingIsLocked("test_env", environment())){
+    #     unlockBinding("test_env", environment())
+    # }
+
+    test_env$end_time <- Sys.time()
     time_diff_str <- toString(round(
             test_env$end_time - test_env$start_time,6))
     cat(paste0("\n\nFinished tests in ", 
             time_diff_str, " seconds.\n\n"))
     test_statics <- new_test_statics(test_env$test_cases)
+    # ps(test_env$test_cases[[1]]$failure_error_list)
     mapply(print_detail, 
             test_statics$failure_error_list,
             1:length(test_statics$failure_error_list))
@@ -144,17 +158,24 @@ handle_test_error <- function(the_error){
 }
 
 only_test <- function(...){
-    test_env$only_tests <<- c(...)
+    test_env$only_tests <- c(...)
     # print(test_env$only_tests)
 }
 
 test <- function(name, block){
+    # if(bindingIsLocked("test_env", environment())){
+    #     unlockBinding("test_env", environment())
+    # }
     if (test_env$need_init){
         test_env$need_init <- FALSE
         print_report_header()
+        invisible(reg.finalizer(environment(),
+                function(e) print_report_footer(),
+                onexit=TRUE))
+
     }
     if (is.null(test_env$only_tests) || (name %in% test_env$only_tests)) {
-        test_env$test_cases <<- list_append(test_env$test_cases,
+        test_env$test_cases <- list_append(test_env$test_cases,
                 new_test_case(name))
         # ps(test_env$test_cases)
         tryCatch(eval(block), error = handle_test_error)
@@ -180,8 +201,4 @@ test <- function(name, block){
     test_env$test_cases[[length(test_env$test_cases)]] <- cur_test_case
     # ps(test_env$test_cases)
 }
-
-invisible(reg.finalizer(globalenv(),
-        function(e) print_report_footer(),
-        onexit=TRUE))
 
