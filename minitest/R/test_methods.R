@@ -120,9 +120,11 @@ print_report_footer <- function(){
             time_diff_str, " seconds.\n\n"))
     test_statics <- new_test_statics(test_env$test_cases)
     # ps(test_env$test_cases[[1]]$failure_error_list)
-    mapply(print_detail, 
-            test_statics$failure_error_list,
-            1:length(test_statics$failure_error_list))
+    if(length(test_statics$failure_error_list)>0){
+        mapply(print_detail, 
+                test_statics$failure_error_list,
+                1:length(test_statics$failure_error_list))
+    }
     # ps(test_statics$failure_error_list)
     # cat(test_statics$failure_error_list[[1]])
     cat(paste0(

@@ -1,8 +1,8 @@
  ☐ get line number(may not support in R)
  ☐ How to define function only for package internal using
- ☐ help doc
 ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
 Archive:
+ ✔ help doc @done (15-12-29 11:35)
  ✔ implement test function @done (15-12-23 15:38)
  ✔ implement %equal% @done (15-12-23 15:38)
  ✔ how to p correctly for p(1:5) @done (15-12-22 05:58)

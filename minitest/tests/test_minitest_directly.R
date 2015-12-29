@@ -18,9 +18,11 @@ if (is.null(sys.frames())){
         fxx(1) %equal% 3
     })
     test("simple", {
-        fx(1) %equal% 1
-        fx(1) %equal% 2
-        fx(1) %equal% 3
+        # fx(1) %equal% 1
+        # fx(1) %equal% 2
+        # fx(1) %equal% 3
+
+        '%equal%'(as.integer(1),1, `==`)
     })
 }
 

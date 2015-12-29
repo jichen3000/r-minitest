@@ -6,7 +6,7 @@ fx <- function(x) x
 #         onexit=TRUE))
 # str(environment())
 if (is.null(sys.frames())){
-    require(minitest)
+    suppressPackageStartupMessages(require(minitest))
     only_test("test1","some error")
     test("some test", {
         fx(1)==1
