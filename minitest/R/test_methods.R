@@ -160,6 +160,7 @@ handle_test_error <- function(the_error){
 only_test <- function(...){
     test_env$only_tests <- c(...)
     # print(test_env$only_tests)
+    invisible(c(...))
 }
 
 test <- function(name, block){
@@ -181,7 +182,7 @@ test <- function(name, block){
         tryCatch(eval(block), error = handle_test_error)
         # print(test_env$only_tests)
     }
-    invisible(TRUE)
+    invisible(name)
 }
 
 `%equal%` <- function(actual, expect, compare_func=identical, failure_msg=NULL){
@@ -200,5 +201,6 @@ test <- function(name, block){
     print_assertion(result)
     test_env$test_cases[[length(test_env$test_cases)]] <- cur_test_case
     # ps(test_env$test_cases)
+    invisible(result)
 }
 

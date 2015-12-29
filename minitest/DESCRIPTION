@@ -1,10 +1,10 @@
 Package: minitest
 Type: Package
 Title: minitest
-Version: 0.0.1
+Version: 0.1.0
 Date: 2015-12-24
 Author: Colin Ji
 Maintainer: Colin Ji <jichen3000@gmail.com>
-Description: This project is for test R codes, and inspired by Ruby minispec.
+Description: This project is for test R codes, and inspired by Ruby minitest.
 Suggests: TEST
-License: GPLv3
+License: GPL-3

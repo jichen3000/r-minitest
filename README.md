@@ -1,6 +1,6 @@
 # Minitest for R
 
-This project is for test R codes, and inspired by Ruby minispec., but now it just implement some methods including:
+This project is for test R codes, and inspired by Ruby minitest., but now it just implement some methods including:
     
     only_test, test, %equal%.
     

@@ -22,3 +22,11 @@ sessionInfo()
 
 Error in test_env$start_time <<- Sys.time() : 
   cannot change value of locked binding for 'test_env'
+
+exportPattern("^[[:alpha:]]+")
+
+global env
+
+cannot reg.finalizer just in the file
+
+export in NAMESPACE  
