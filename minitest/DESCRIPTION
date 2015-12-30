@@ -1,7 +1,7 @@
 Package: minitest
 Type: Package
 Title: minitest
-Version: 0.3.0
+Version: 0.3.1
 Date: 2015-12-30
 Author: Colin Ji
 Maintainer: Colin Ji <jichen3000@gmail.com>

@@ -30,21 +30,18 @@ For a simple example, you write a function called fx, and I would like to write 
     fx <- function(x) x
 
     if (is.null(sys.frames())){
+        suppressPackageStartupMessages(require(minitest))
         # only test case named list below will be tested
-        only_test("simple", "error", "compare function")
+        only_test("simple", "compare function")
         # this test will not run
         test("pass test", {
             fx(1) %equal% 3
         })
         test("simple", {
             fx(1) %equal% 1
-            fx(1) %equal% 2
-        })
-        test("error", {
-            fxx(1) %equal% 3
+            list(1:3, 4:6) %equal% list(1:3, 4:6)
         })
         test("compare function", {
-            `%equal%`(as.integer(1), 1, identical)
             `%equal%`(as.integer(1), 1, `==`)
             `%equal%`(1, 1, identical)
         })
@@ -56,26 +53,11 @@ result:
 
     Running tests:
 
-    .FEF..
+    ....
 
-    Finished tests in 0.003731 seconds.
+    Finished tests in 0.002614 seconds.
 
-    1) Failure:
-    in simple:
-      EXPECTED:  num 2
-      ACTUAL  :  num 1
-
-    2) Error:
-    in error:
-    class: simpleError,error,condition
-    could not find function "fxx"
-
-    3) Failure:
-    in compare function:
-      EXPECTED:  num 1
-      ACTUAL  :  int 1
-
-    3 tests, 5 assertions, 2 failures, 1 errors.
+    2 tests, 4 assertions, 0 failures, 0 errors.
 
 ### Other useful function
 
