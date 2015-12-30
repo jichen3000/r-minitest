@@ -20,12 +20,12 @@ new_test_case <- function(name){
 }
 
 new_test_failure <- function(test_name, actual, expect, 
-        failure_msg=NULL){
+        compare_func_name){
     structure(list(
                 test_name=test_name, 
                 actual=actual, 
                 expect=expect,
-                failure_msg=failure_msg
+                compare_func_name=compare_func_name
             ), class = "TestFailure")
 }
 
@@ -88,6 +88,9 @@ print_detail <- function(test_object, index){
 print_detail.TestFailure <- function(the_failure, index){
     cat(paste0(index, ") Failure:\n"))
     cat(paste0("in ", the_failure$test_name,":\n"))
+    cat("  COMPARE FUNCTION: ")
+    cat(the_failure$compare_func_name)
+    cat("\n")
     cat("  EXPECTED: ")
     str(the_failure$expect)
     cat("  ACTUAL  : ")
@@ -187,17 +190,20 @@ test <- function(name, block){
     invisible(name)
 }
 
-`%equal%` <- function(actual, expect, compare_func=`==`){
+`%equal%` <- function(actual, expect, compare_func=all.equal){
     cur_test_case <- list_last(test_env$test_cases)
     # ps(cur_test_case)
-    result <- compare_func(actual, expect)
+    compare_func_name <- as.character(substitute(compare_func))
+    # ps(compare_func_name)
+    result <- isTRUE(compare_func(actual, expect))
     result
     cur_test_case$assertion_count <- cur_test_case$assertion_count + 1 
     if(!result){
         cur_test_case$failure_count <- cur_test_case$failure_count + 1
         cur_test_case$failure_error_list <- list_append(
                 cur_test_case$failure_error_list, 
-                new_test_failure(cur_test_case$name, actual, expect))
+                new_test_failure(cur_test_case$name, 
+                actual, expect,compare_func_name))
         # cur_test_case$assertion_count <- cur_test_case$assertion_count + 1 
     }
     print_assertion(result)
@@ -206,7 +212,7 @@ test <- function(name, block){
     invisible(result)
 }
 
-`%identical%` <- function(actual, expect){
-    `%equal%`(actual, expect, identical)
-}
+# `%identical%` <- function(actual, expect){
+#     `%equal%`(actual, expect, identical)
+# }
 
