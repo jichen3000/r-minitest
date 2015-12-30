@@ -187,7 +187,7 @@ test <- function(name, block){
     invisible(name)
 }
 
-`%equal%` <- function(actual, expect, compare_func=identical, failure_msg=NULL){
+`%equal%` <- function(actual, expect, compare_func=`==`){
     cur_test_case <- list_last(test_env$test_cases)
     # ps(cur_test_case)
     result <- compare_func(actual, expect)
@@ -204,5 +204,9 @@ test <- function(name, block){
     test_env$test_cases[[length(test_env$test_cases)]] <- cur_test_case
     # ps(test_env$test_cases)
     invisible(result)
+}
+
+`%identical%` <- function(actual, expect){
+    `%equal%`(actual, expect, identical)
 }
 

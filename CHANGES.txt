@@ -1,6 +1,13 @@
 Changes
 -------
 
+0.2.0 (2015-12-30)
+~~~~
+
+%euqal% use `==` instead of identical as default compare function.
+Add %identical%
+
+
 0.1.0 (2015-12-29)
 ~~~~
 

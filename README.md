@@ -2,7 +2,7 @@
 
 This project is for test R codes, and inspired by Ruby minitest., but now it just implement some methods including:
     
-    only_test, test, %equal%.
+    only_test, test, %equal%, %identical%.
     
 And some other useful functions:
 
@@ -30,30 +30,43 @@ For a simple example, you write a function called fx, and I would like to write 
     fx <- function(x) x
 
     if (is.null(sys.frames())){
-        require(minitest)
-
-        # only test case named "simple" will be tested
-        only_test("simple")
+        suppressPackageStartupMessages(require(minitest))
+        # only test case named list below will be tested
+        only_test("simple", "identical", "as function")
         # this test will not run
         test("pass test", {
             fx(1) %equal% 3
+        })
+        test("pass test", {
+            fxx(1) %equal% 3
         })
         test("simple", {
             fx(1) %equal% 1
             fx(1) %equal% 2
             fx(1) %equal% 3
+
+        })
+        test("as function", {
+            `%equal%`(as.integer(1),1, identical)
+            `%equal%`(as.integer(1),1, `==`)
+            `%equal%`(1,1, identical)
+        })
+        test("identical", {
+            as.integer(1) %identical% 1
+
+            as.integer(1) %equal% 1
         })
     }
 
 result:
 
-    Notice, only test these functions: simple
+    Notice, only test these functions: simple, identical, as function
 
     Running tests:
 
-    .FF
+    .FFF..F.
 
-    Finished tests in 0.000882 seconds.
+    Finished tests in 0.001689 seconds.
 
     1) Failure:
     in simple:
@@ -65,8 +78,17 @@ result:
       EXPECTED:  num 3
       ACTUAL  :  num 1
 
-    1 tests, 3 assertions, 2 failures, 0 errors.
+    3) Failure:
+    in as function:
+      EXPECTED:  num 1
+      ACTUAL  :  int 1
 
+    4) Failure:
+    in identical:
+      EXPECTED:  num 1
+      ACTUAL  :  int 1
+
+    3 tests, 8 assertions, 4 failures, 0 errors.
 
 ### Other useful function
 

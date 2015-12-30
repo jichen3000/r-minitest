@@ -1,34 +1,47 @@
-\name{minitest-package}
-\alias{minitest-package}
-\alias{minitest}
-\docType{package}
+\name{\%identical\%}
+\alias{\%identical\%}
+%- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-\packageTitle{minitest}
+%%  ~~function to do ... ~~
+check two variable if they are equal
 }
 \description{
-\packageDescription{minitest}
+%%  ~~ A concise (1-5 lines) description of what the function does. ~~
+}
+\usage{
+\%identical\%(actual, expect)
+}
+%- maybe also 'usage' for other objects documented here.
+\arguments{
+  \item{actual}{
+the actual value
+}
+  \item{expect}{
+the expect value
+}
 }
 \details{
-Some methods including:
-    
-    only_test, test, \%equal\%, \%identical\%.
-
-And some other useful functions:
-
-    p, ps.
-
-https://github.com/jichen3000/r-minitest
+%%  ~~ If necessary, more details than the description above ~~
+}
+\value{
+invisible(compare_result)
+}
+\references{
+%% ~put references to the literature/web site here ~
 }
 \author{
 \packageAuthor{minitest}
 
 Maintainer: \packageMaintainer{minitest}
 }
-\references{
+\note{
+%%  ~~further notes~~
 }
-\keyword{ package }
+
+%% ~Make other sections like Warning with \section{Warning }{....} ~
+
 \seealso{
-Ruby minitest
+%% ~~objects to See Also as \code{\link{help}}, ~~~
 }
 \examples{
 code:
@@ -98,3 +111,7 @@ result:
     3 tests, 8 assertions, 4 failures, 0 errors.
 
 }
+% Add one or more standard keywords, see file 'KEYWORDS' in the
+% R documentation directory.
+\keyword{ ~kwd1 }
+\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line
